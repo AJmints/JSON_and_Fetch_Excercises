@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Fetch Planets</title>
+      <script>
+        
+
+         window.addEventListener("load", function(){
+            const destination = document.getElementById("destination");
+            const greatBeyond = document.getElementById("greatBeyond");
+            let index = 0;
+            let planetData;
+            
+            
+            fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+                response.json().then( function(json) {
+                    greatBeyond.addEventListener("click", function(){
+                     
+                    destination.innerHTML = `
+                        <div>
+                        <h3>Planet ${json[index].name}</h3>
+                        <img src=${json[index].image} height=250></img>
+                        <p id="moreInfo">Planet Details
+                        <h3>Distance: ${json[index].distance}</h3>
+                        <h3>Diameter: ${json[index].diameter}</h3>
+                        <h3>Moons: ${json[index].moons}</h3>
+                        <h3>Star: ${json[index].star}</h3>   
+                        </p>
+                        </div>
+                    `;
+                        
+                     index = (index + 1) % json.length;
+                        
+                })
+                planetData = [json[0], json[1], json[2], json[3], json[4], json[5]];
+                })
+                
+            });
+            setTimeout(() => { console.log(planetData); }, 2000);
+            // TODO: fetch planets JSON
+         
+         });
+
+         
+      </script>
+   </head>
+   <body>
+      <h1>Destination</h1>
+      <button id="greatBeyond">Destination</button>
+      <div id="destination">
+         <h3>Planet</h3>
+      </div>
+   </body>
+</html>
